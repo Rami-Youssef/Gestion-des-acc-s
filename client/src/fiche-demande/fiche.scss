@@ -1,0 +1,105 @@
+#fiche {
+    background-color: #34495e;
+    
+    form {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        width: fit-content;
+        margin: auto;
+        padding: auto;
+    }
+
+    h2, h1 {
+        margin-bottom: 20px;
+        padding: 20px;
+        color: #ffffff;
+        text-align: center;
+        font-style: italic;
+        background-color: #34495e;
+    }
+
+    #First {
+        padding: 2%;
+        display: flex;
+        
+        div {
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            
+            div{
+                flex-basis: 50%;
+            }
+        }
+    }
+
+    form {
+        font-weight: bolder;
+        color: #ffffff;
+        border: 1px solid black;
+        background-color: #31977a;
+
+        div {
+            padding: 10px;
+            display: flex;
+            justify-content: space-evenly;
+        }
+    }
+
+    select{
+        width: 150px;
+    }
+    input {
+        box-shadow: inset #abacaf 0 0 0 2px;
+        height: 10px;
+        border: 0;
+        background: rgba(255, 255, 255, 0.995);
+        width: 150px;
+        border-radius: 5px;
+        padding: 9px 12px;
+        line-height: 1.4;
+        color: rgb(0, 0, 0);
+        font-size: 16px;
+        transition: all .2s ease;
+
+        &:hover {
+            box-shadow: 0 0 0 0 #fff inset, #1de9b6 0 0 0 2px;
+        }
+
+        &:focus {
+            background: #fff;
+            outline: 0;
+            box-shadow: 0 0 0 0 #fff inset, #1de9b6 0 0 0 3px;
+        }
+    }
+
+    .space {
+        width: 5%;
+    }
+
+    button {
+        display: inline-block;
+        outline: none;
+        cursor: pointer;
+        font-weight: 600;
+        border-radius: 3px;
+        padding: 12px 24px;
+        border: 0;
+        color: #fff;
+        background: #000a47;
+        line-height: 1.15;
+        font-size: 16px;
+
+        &:hover {
+            transition: all .1s ease;
+            box-shadow: 0 0 0 0 #fff, 0 0 0 3px #1de9b6;
+        }
+    }
+
+    label {
+        padding: 5px;
+    }
+}
