@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\demandes;
 
 class demandeController extends Controller
 {
@@ -11,7 +12,8 @@ class demandeController extends Controller
      */
     public function index()
     {
-        //
+        $demandes= demandes::all();
+        return response()->json(['demandes'=>$demandes]);
     }
 
     /**
@@ -19,7 +21,7 @@ class demandeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        demandes::create($request ->All());
     }
 
     /**
@@ -27,7 +29,8 @@ class demandeController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $demandes = Demande::findOrFail($id);
+        return response()->json(['Demande'=>$demandes]);
     }
 
     /**
@@ -35,7 +38,8 @@ class demandeController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $demandes = Demande::findOrFail($id);
+        return response()->json(['Demande'=>$demandes]);
     }
 
     /**
@@ -43,7 +47,8 @@ class demandeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $demandes = Demande::findOrFaill($id);
+        $demande->update($request);
     }
 
     /**
@@ -51,6 +56,7 @@ class demandeController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $demandes = Demande::findOrFail($id);
+        $demande->delete();
     }
 }
