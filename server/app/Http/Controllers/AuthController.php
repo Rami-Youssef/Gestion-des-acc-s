@@ -2,97 +2,68 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Controller;
-use validator;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response; // Import the Response class here
 
 class AuthController extends Controller
 {
     /**
-     * Create a new AuthController instance.
+     * Register a new user.
      *
-     * @return void
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function __construct()
+    public function register(Request $request)
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
-    }
-
-    public function register()
-    {
-        $validator =Validator::make($request->all,[
-            'Email'=>'required', 
-            'Password'=>'required|string|email|unique::users', 
-            'Post'=>'required|string|confirmed'
+        $request->validate([
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:6',
+            'post' => 'required|string',
         ]);
-        if($validator->fails()){
-            return response()->json($validator->error()->toJson(),400);
-        }
+
+        $user = User::create([
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'post' => $request->post,
+        ]);
+
+        return response()->json(['message' => 'User registered successfully', 'user' => $user]);
     }
+
+    /**
+     * Authenticate a user.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function login(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
     
-    /**
-     * Get a JWT via given credentials.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function login()
-    {
-        $credentials = request(['email', 'password']);
-
-        if (! $token = auth()->attempt($credentials)) {
-            error_log("Login failed with email: " . $credentials['email'] . " and password: " . $credentials['password']);
-        
-            return response()->json(['error' => 'Unauthorized'], 401);
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            $token = $user->createToken('authToken')->plainTextToken;
+    
+            return response()->json(['message' => 'User authenticated successfully', 'user' => $user, 'token' => $token]);
         }
-
-        return $this->respondWithToken($token);
-    }
-
-    /**
-     * Get the authenticated User.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function me()
-    {
-        return response()->json(auth()->user());
+    
+        // Explicitly set the response status to 401 for failed authentication
+        return response()->json(['message' => 'Invalid credentials'], Response::HTTP_UNAUTHORIZED);
     }
 
     /**
      * Log the user out (Invalidate the token).
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function logout()
+    public function logout(Request $request)
     {
-        auth()->logout();
+        $request->user()->currentAccessToken()->delete();
 
-        return response()->json(['message' => 'Successfully logged out']);
-    }
-
-    /**
-     * Refresh a token.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function refresh()
-    {
-        return $this->respondWithToken(auth()->refresh());
-    }
-
-    /**
-     * Get the token array structure.
-     *
-     * @param  string $token
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    protected function respondWithToken($token)
-    {
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
-        ]);
+        return response()->json(['message' => 'User logged out successfully']);
     }
 }

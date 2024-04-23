@@ -7,45 +7,25 @@ use App\Http\Controllers\userController;
 use App\Http\Middleware\CorsMiddleware;
 
 
-
 use App\Http\Controllers\AuthController;
 
 
-Route::middleware(['CorsMiddleware'])->group(function ( ){
+
     
-    //demande crud
-    Route::resource('demande',demandeController::class);
     
-    // Authentication Routes
-        Route::post('login', [AuthController::class, 'login']);
 
-        Route::post('register', [AuthController::class, 'register']);
-
-    // Protected Routes (require authentication)
-        Route::group(['middleware' => 'auth.jwt'], function () {
-            Route::get('me', [AuthController::class, 'me']);
-            Route::post('logout', [AuthController::class, 'logout']);
-            Route::post('refresh', [AuthController::class, 'refresh']);
-        });
-})
+Route::middleware(['cors'])->group(function () {
+    Route::resource('demande', demandeController::class);
+    Route::post('login', [AuthController::class, 'login'])->name('login');
+    Route::post('register', [AuthController::class, 'register'])->name('register');
+    Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+});
 
 
+Route::get('/csrf-token', function () {
+    return response()->json([
+        'csrf_token' => csrf_token(),
+    ]);
+});
 
 
-
-
-
-
-/*Route::group([
-
-    'middleware' => 'api',
-    'prefix' => 'auth'
-
-], function ($router) {
-
-    Route::post('login', 'AuthController@login');
-    Route::post('logout', 'AuthController@logout');
-    Route::post('refresh', 'AuthController@refresh');
-    Route::post('me', 'AuthController@me');
-
-});*/
