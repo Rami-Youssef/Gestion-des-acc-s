@@ -1,5 +1,9 @@
+html{
+    overflow-x: hidden;
+}
 #fiche {
-    background-color: #34495e;
+    background-image: url('wood.jpg');
+    background-size: cover; /* Dark black */
     
     form {
         text-align: center;
@@ -10,15 +14,19 @@
         width: fit-content;
         margin: auto;
         padding: auto;
+        color: #fff; /* White */
     }
 
     h2, h1 {
         margin-bottom: 20px;
         padding: 20px;
-        color: #ffffff;
+        color: 	#3cb99a; 
+        text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.7);/* White */
         text-align: center;
-        font-style: italic;
-        background-color: #34495e;
+        font-style: italic;   }
+
+    h1{
+        margin-bottom: -20px;
     }
 
     #First {
@@ -37,21 +45,32 @@
     }
 
     form {
+        border-radius: 10px;
         font-weight: bolder;
-        color: #ffffff;
-        border: 1px solid black;
-        background-color: #31977a;
-
+        font-size: larger;
+        backdrop-filter: blur(8.5px);
+        color: rgb(220, 224, 223); /* White */
+        border: 1px solid #ffffff; /* White */
+        background: rgba(4, 51, 16, 0.15);
+        box-shadow: 50px 10px 20px rgba(0, 0, 0, 0.1);
         div {
             padding: 10px;
             display: flex;
-            justify-content: space-evenly;
+            justify-content: space-evenly;/* Medium gray */
+            border-radius: 10px;
+            margin: 10px 0;
+            
         }
     }
 
-    select{
+    select {
         width: 150px;
+        color: #fff; /* White */
+        background-color: #333; /* Dark gray */
+        border: 1px solid #fff; /* White */
+        border-radius: 10px;
     }
+    
     input {
         box-shadow: inset #abacaf 0 0 0 2px;
         height: 10px;
@@ -61,9 +80,11 @@
         border-radius: 5px;
         padding: 9px 12px;
         line-height: 1.4;
-        color: rgb(0, 0, 0);
+        color: #fff; /* White */
         font-size: 16px;
         transition: all .2s ease;
+        background-color: #333; /* Dark gray */
+        border: 1px solid #fff; /* White */
 
         &:hover {
             box-shadow: 0 0 0 0 #fff inset, #1de9b6 0 0 0 2px;
@@ -72,6 +93,7 @@
         &:focus {
             background: #fff;
             outline: 0;
+            color: black;
             box-shadow: 0 0 0 0 #fff inset, #1de9b6 0 0 0 3px;
         }
     }
@@ -88,8 +110,8 @@
         border-radius: 3px;
         padding: 12px 24px;
         border: 0;
-        color: #fff;
-        background: #000a47;
+        color: #fff; /* White */
+        background: #000; /* Black */
         line-height: 1.15;
         font-size: 16px;
 
@@ -102,4 +124,52 @@
     label {
         padding: 5px;
     }
+
+    #D_R {
+        border-collapse: collapse;
+        margin-bottom: 3%;
+        width: 80%;
+        th, td {
+          border: 3px solid #fff; /* White */
+          padding: 10px;
+          text-align: left;
+          font-family: Arial, sans-serif;
+        }
+      
+        th {
+          background-color: #fff; /* White */
+          font-weight: bold;
+          color: #000; /* Black */
+        }
+      
+        tr:nth-child(even) {
+          background-color: #fff; /* White */
+          color: #000; /* Black */
+        }
+      
+        tr:hover {
+          background-color: #fff; /* White */
+          color: #000; /* Black */
+        }
+      }
+      
+    #sendParent{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+
+          
+          
+        #send{
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: center;
+            width: fit-content;
+            margin: 20px;
+            padding: auto;
+        }
+    }
 }
+

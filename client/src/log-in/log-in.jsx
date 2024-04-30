@@ -5,65 +5,63 @@ import Button from './button.jsx';
 import Icon from './icon.jsx';
 import { MainContainer, HorizontalRule, WelcomeText, InputContainer, ButtonContainer, IconsContainer } from './log-in.js';
 import './log-in.scss';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [Status,SetStatus]=useState("")
+    const Navigate=useNavigate()
+    const [value,setValue]=useState({
+        Email: email,
+        Password:password
+    })
 
-    // Fetch CSRF token on component mount
     useEffect(() => {
-        fetchCsrfToken();
-    }, []);
+        setValue({
+            "Email": email,
+            "Password": password
+        });
+    }, [email, password]);
 
-    const fetchCsrfToken = () => {
-        axios.get('http://localhost:8080/http://127.0.0.1:8000/csrf-token')
-            .then(response => {
-                setCsrfToken(response.data.csrf_token);
-            })
-            .catch(error => {
-                console.error('Failed to fetch CSRF token:', error);
-                // Handle error
-            });
-    };
+    axios.defaults.withCredentials= true;
 
-    const [csrfToken, setCsrfToken] = useState("");
-
-    const handleLogin = async () => {
-        try {
-            const response = await axios.post('http://localhost:8080/http://127.0.0.1:8000/login', { email, password }, {
-                headers: {
-                    'X-CSRF-TOKEN': csrfToken
+    const send = () => {
+        axios.post('http://localhost:5000/login', value)
+            .then((res) => {
+                if(res.data.Status=== "Success"){
+                    console.log(res.data.Password)
+                    Navigate('/GDA/List')
+                }else{
+                    SetStatus(res.data.Status)
+                    console.log('wtf')
                 }
+                
+            })
+            .catch((err) => {
+                console.log('Your error:', err);
             });
-            console.log(response.data);
-            // Handle successful login (e.g., redirect user)
-        } catch (error) {
-            console.error('Login failed:', error.response ? error.response.data : error.message);
-            // Handle login error (e.g., display error message to user)
-        }
     };
 
     return (
         <div id='login'>
             <MainContainer>
                 <WelcomeText>
-                    <p>{email} yo{password}</p>
-                    Log-in
-                    <HorizontalRule />
+                Se identifier            
+                <HorizontalRule />
                 </WelcomeText>
 
                 <InputContainer>
                     <Input type="text" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
                     <Input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
                 </InputContainer>
-
+                <div style={{color: '#cc0000'}}>{Status}</div>
                 <ButtonContainer>
-                    <Button content="Login" onClick={handleLogin} />
+                    <Button content="Login" onClick={send}/>
                 </ButtonContainer>
 
                 <IconsContainer>
-                    <Icon>
-                        qzd
+                    <Icon >
                     </Icon>
                 </IconsContainer>
             </MainContainer>

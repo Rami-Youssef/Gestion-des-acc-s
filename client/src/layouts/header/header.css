@@ -1,0 +1,42 @@
+/* Styling for the header container */
+#Header {
+    position: sticky; /* Make the header sticky */
+    top: 0; /* Stick the header to the top of the viewport */
+    z-index: 1000; /* Ensure the header is above other content */
+    margin-bottom: -22px; /* Overlap the header with the content above by pulling it up */
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Space items evenly along the main axis */
+    align-items: center; /* Center items vertically */
+    padding: 10px 20px; /* Add padding inside the header */
+    background-color: #333; /* Set the background color */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  }
+
+  #links{
+    display: flex;
+  }
+  /* Styling for the header links */
+  #Header a {
+    text-decoration: none; /* Remove underline from links */
+    color: white; /* Set link color */
+    margin-left: 20px; /* Add space between links */
+    font-weight: 500; /* Set font weight */
+    transition: color 0.3s ease; /* Smooth transition for link color change */
+  }
+  
+  /* Styling for the header links on hover */
+  #Header a:hover {
+    color: #4a9d1d; /* Change link color on hover */
+  }
+  
+  /* Styling for the last link in the header */
+  #Header a:last-child {
+    margin-left: auto; /* Push the last link to the right */
+    width: 20%;
+  }
+
+  #Header #logo{
+    justify-self: center;
+    align-self: center;
+  }
+  

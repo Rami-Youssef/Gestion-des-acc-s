@@ -1,0 +1,51 @@
+// ListDemande.scss
+.showText {
+    color: #fff;
+    background-color: #333;
+    padding: 10px;
+    cursor: pointer;
+    text-align: center;
+    margin:35px 150px;
+}
+
+.container {
+    
+
+}
+
+.show {
+    border-collapse: collapse;
+    width: 80%;
+    margin: auto;
+}
+
+.show th, .show td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.show th {
+    background-color: #333;
+    color: #fff;
+}
+
+.show tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.show tr:hover {
+    background-color: #ddd;
+}
+
+.Link {
+    color: #1e90ff;
+    text-decoration: none;
+}
+
+.Link:hover {
+    text-decoration: underline;
+}
+
+.container {
+    margin-bottom: 20px;
+}
